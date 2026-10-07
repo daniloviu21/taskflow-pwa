@@ -76,16 +76,45 @@ async function toggleTask(id) {
 
   if (!tarea) return;
 
-  // Cambiar estado
+  // Cambiar el estado
   tarea.done = !tarea.done;
 
+  // Guardar
   saveTasks();
-  renderTasks();
 
-  // Solo notificar cuando pasa a COMPLETADA
+  // Si acaba de completarse, mandar notificación
   if (tarea.done) {
-    await mostrarNotificacionTarea(tarea);
+
+    console.log('Tarea completada:', tarea.title);
+
+    try {
+
+      const registration =
+        await navigator.serviceWorker.ready;
+
+      await registration.showNotification(
+        '🎉 ¡Tarea completada!',
+        {
+          body: `Terminaste: ${tarea.title}`,
+          icon: './icons/icon-192.png',
+          badge: './icons/icon-192.png',
+          tag: `tarea-${tarea.id}`
+        }
+      );
+
+      console.log('Notificación enviada');
+
+    } catch (error) {
+
+      console.error(
+        'Error mostrando notificación:',
+        error
+      );
+    }
   }
+
+  // Renderizar DESPUÉS
+  renderTasks();
 }
 
 async function mostrarNotificacionTarea(tarea) {
