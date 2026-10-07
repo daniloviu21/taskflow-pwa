@@ -1,0 +1,263 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #0f172a;
+  background: #f8fafc;
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --border: #dbeafe;
+  --muted: #64748b;
+  --card: #ffffff;
+  --success: #15803d;
+  --danger: #dc2626;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  padding: 2rem max(1rem, calc((100vw - 980px) / 2));
+  background: linear-gradient(135deg, #1d4ed8, #2563eb);
+  color: white;
+}
+
+.eyebrow {
+  margin: 0 0 .4rem;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  font-size: .75rem;
+  opacity: .85;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: .35rem;
+  font-size: clamp(2rem, 5vw, 3rem);
+}
+
+.subtitle {
+  margin-bottom: 0;
+  opacity: .9;
+}
+
+.badge {
+  padding: .55rem .8rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .16);
+  border: 1px solid rgba(255, 255, 255, .25);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.container {
+  width: min(980px, calc(100% - 2rem));
+  margin: 2rem auto;
+  display: grid;
+  gap: 1.2rem;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  padding: 1.25rem;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, .06);
+}
+
+.section-heading,
+.install-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.section-heading p,
+.install-card p {
+  color: var(--muted);
+  margin-bottom: 0;
+}
+
+.task-form {
+  display: grid;
+  grid-template-columns: 2fr 1.2fr 1fr auto;
+  gap: .8rem;
+  margin-top: 1rem;
+  align-items: end;
+}
+
+label {
+  display: grid;
+  gap: .4rem;
+  font-size: .9rem;
+  font-weight: 700;
+}
+
+input {
+  width: 100%;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  padding: .8rem .9rem;
+  background: white;
+  outline: none;
+}
+
+input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, .12);
+}
+
+.primary,
+.secondary,
+.filter,
+.icon-btn {
+  border: 0;
+  border-radius: 12px;
+  padding: .8rem 1rem;
+  font-weight: 800;
+}
+
+.primary {
+  background: var(--primary);
+  color: white;
+}
+
+.primary:hover {
+  background: var(--primary-dark);
+}
+
+.secondary {
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+.filters {
+  display: flex;
+  gap: .5rem;
+  flex-wrap: wrap;
+  margin: 1.2rem 0;
+}
+
+.filter {
+  padding: .55rem .85rem;
+  background: #f1f5f9;
+  color: #334155;
+}
+
+.filter.active {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.task-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: .7rem;
+}
+
+.task-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: .9rem;
+  align-items: center;
+  padding: 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+}
+
+.task-item.done .task-title {
+  text-decoration: line-through;
+  color: var(--muted);
+}
+
+.task-check {
+  width: 22px;
+  height: 22px;
+  accent-color: var(--primary);
+}
+
+.task-title {
+  margin: 0 0 .2rem;
+  font-weight: 800;
+}
+
+.task-meta {
+  margin: 0;
+  color: var(--muted);
+  font-size: .88rem;
+}
+
+.icon-btn {
+  background: #fee2e2;
+  color: var(--danger);
+  padding: .55rem .75rem;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: var(--muted);
+}
+
+.empty-icon {
+  width: 52px;
+  height: 52px;
+  margin: 0 auto .8rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #dcfce7;
+  color: var(--success);
+  font-weight: 900;
+  font-size: 1.4rem;
+}
+
+footer {
+  text-align: center;
+  color: var(--muted);
+  padding: 0 1rem 2rem;
+}
+
+@media (max-width: 780px) {
+  .task-form {
+    grid-template-columns: 1fr;
+  }
+
+  .section-heading,
+  .install-card,
+  .topbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .secondary,
+  .primary {
+    width: 100%;
+  }
+}

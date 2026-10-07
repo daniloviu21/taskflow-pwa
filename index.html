@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#2563eb" />
+  <meta name="description" content="TaskFlow, gestor académico PWA funcional sin conexión." />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="icon" href="./icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="./icons/icon-192.png" />
+  <link rel="stylesheet" href="./styles.css" />
+  <title>TaskFlow</title>
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">PWA académica</p>
+      <h1>TaskFlow</h1>
+      <p class="subtitle">Organiza tus tareas incluso sin conexión.</p>
+    </div>
+    <div id="networkBadge" class="badge">Comprobando red…</div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <div class="section-heading">
+        <div>
+          <h2>Nueva tarea</h2>
+          <p>Guarda actividades en tu dispositivo.</p>
+        </div>
+      </div>
+
+      <form id="taskForm" class="task-form">
+        <label>
+          Tarea
+          <input id="title" type="text" maxlength="80" placeholder="Ej. Terminar reporte de PWA" required />
+        </label>
+
+        <label>
+          Materia
+          <input id="subject" type="text" maxlength="50" placeholder="Ej. Aplicaciones web" required />
+        </label>
+
+        <label>
+          Fecha de entrega
+          <input id="dueDate" type="date" required />
+        </label>
+
+        <button class="primary" type="submit">Agregar tarea</button>
+      </form>
+    </section>
+
+    <section class="card controls-card">
+      <div class="section-heading">
+        <div>
+          <h2>Mis tareas</h2>
+          <p id="taskSummary">0 tareas registradas</p>
+        </div>
+        <button id="notificationBtn" class="secondary" type="button">🔔 Probar notificación</button>
+      </div>
+
+      <div class="filters" role="group" aria-label="Filtros de tareas">
+        <button class="filter active" data-filter="all" type="button">Todas</button>
+        <button class="filter" data-filter="pending" type="button">Pendientes</button>
+        <button class="filter" data-filter="done" type="button">Completadas</button>
+      </div>
+
+      <ul id="taskList" class="task-list"></ul>
+
+      <div id="emptyState" class="empty-state">
+        <div class="empty-icon">✓</div>
+        <h3>No hay tareas todavía</h3>
+        <p>Agrega una actividad para empezar.</p>
+      </div>
+    </section>
+
+    <section class="card install-card">
+      <div>
+        <h2>Instalar TaskFlow</h2>
+        <p>Cuando el navegador lo permita, podrás instalarla como una app.</p>
+      </div>
+      <button id="installBtn" class="primary" type="button" hidden>Instalar app</button>
+    </section>
+  </main>
+
+  <footer>
+    <p>TaskFlow · PWA con soporte offline, manifest, iconos y notificaciones.</p>
+  </footer>
+
+  <script src="./app.js" defer></script>
+</body>
+</html>
