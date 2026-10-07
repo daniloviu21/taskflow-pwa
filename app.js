@@ -70,12 +70,72 @@ function renderTasks() {
   emptyState.hidden = visibleTasks.length !== 0;
 }
 
-function toggleTask(id) {
-  tasks = tasks.map(task =>
-    task.id === id ? { ...task, done: !task.done } : task
-  );
+async function toggleTask(id) {
+
+  const tarea = tasks.find(task => task.id === id);
+
+  if (!tarea) return;
+
+  // Cambiar estado
+  tarea.done = !tarea.done;
+
   saveTasks();
   renderTasks();
+
+  // Solo notificar cuando pasa a COMPLETADA
+  if (tarea.done) {
+    await mostrarNotificacionTarea(tarea);
+  }
+}
+
+async function mostrarNotificacionTarea(tarea) {
+
+  // Verificar soporte
+  if (!('Notification' in window)) {
+    console.log('El navegador no soporta notificaciones');
+    return;
+  }
+
+  // Solicitar permiso si todavía no se ha solicitado
+  if (Notification.permission === 'default') {
+
+    const permiso = await Notification.requestPermission();
+
+    if (permiso !== 'granted') {
+      return;
+    }
+  }
+
+  // Si el usuario bloqueó las notificaciones
+  if (Notification.permission !== 'granted') {
+    console.log('No hay permiso para notificaciones');
+    return;
+  }
+
+  try {
+
+    // Esperar al Service Worker
+    const registration =
+      await navigator.serviceWorker.ready;
+
+    // Mostrar notificación
+    await registration.showNotification(
+      '🎉 ¡Tarea completada!',
+      {
+        body: `Terminaste: ${tarea.title}`,
+        icon: './icons/icon-192.png',
+        badge: './icons/icon-192.png',
+        tag: `tarea-${tarea.id}`
+      }
+    );
+
+  } catch (error) {
+
+    console.error(
+      'Error mostrando notificación:',
+      error
+    );
+  }
 }
 
 function deleteTask(id) {
